@@ -1,0 +1,57 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  verify:
+    name: Build, Test & Package
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.30.3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Check package boundaries & imports
+        run: node packages/core/scripts/check-imports.mjs
+
+      - name: Build all workspace packages
+        run: pnpm -r build
+
+      - name: Run unit & integration tests
+        run: pnpm -r test
+
+      - name: Package VSIX extension
+        run: pnpm package
+
+      - name: Verify VSIX file size (< 2MB)
+        run: |
+          size=$(stat -c%s packages/extension/dwell-0.1.0.vsix)
+          echo "VSIX size: $size bytes"
+          if [ $size -gt 2097152 ]; then
+            echo "ERROR: VSIX exceeds 2MB budget"
+            exit 1
+          fi
+
+      - name: Upload VSIX artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dwell-vsix
+          path: packages/extension/dwell-0.1.0.vsix

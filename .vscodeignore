@@ -1,0 +1,17 @@
+.vscode
+.vscode-test
+apps/
+packages/*/src/
+packages/*/test/
+tests/
+reference/
+docs/
+.agents/
+.github/
+.editorconfig
+tsconfig*.json
+**/*.spec.ts
+**/*.test.ts
+**/*.map
+AGENTS.md
+GOAL-PROMPT.md

@@ -1,0 +1,101 @@
+@font-face {
+  font-family: 'iA Writer Quattro S';
+  src: url('../../assets/fonts/iAWriterQuattroS-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: block;
+}
+
+@font-face {
+  font-family: 'IBM Plex Mono';
+  src: url('../../assets/fonts/IBMPlexMono-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: block;
+}
+
+:root {
+  /* Dark (default) */
+  --ink-900: #12110F;
+  --ink-800: #1A1917;
+  --ink-700: #232220;
+  --ink-600: #2E2C29;
+  --ink-400: #57534D;
+  --ink-200: #8F8A82;
+  --ink-050: #E8E4DC;
+  --accent: #C2703D;
+  --accent-dim: #8A4F2B;
+  --hold: #5F6B5A;
+
+  /* Spacing scale */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-6: 24px;
+  --sp-8: 32px;
+  --sp-12: 48px;
+  --sp-16: 64px;
+
+  /* Type */
+  --font-drill: 'iA Writer Quattro S', monospace;
+  --font-mono: 'IBM Plex Mono', monospace;
+  --size-drill: 19px;
+  --lh-drill: 1.55;
+  --size-mono: 13px;
+  --size-label: 12px;
+
+  /* Motion */
+  --motion-caret: 70ms;
+  --motion-panel-open: 140ms;
+  --motion-panel-close: 110ms;
+  --motion-wick-appear: 220ms;
+  --motion-wick-retract: 160ms;
+  --motion-glyph: 90ms;
+  --motion-clean-retract: 300ms;
+  --motion-flame-out: 180ms;
+}
+
+[data-theme="light"] {
+  --ink-900: #F4F1EA;
+  --ink-800: #EFEBE2;
+  --ink-700: #E7E2D7;
+  --ink-600: #D7D1C4;
+  --ink-400: #A39C90;
+  --ink-200: #6B655C;
+  --ink-050: #1C1A17;
+  --accent: #B3612E;
+  --accent-dim: #C99B79;
+  --hold: #5C6857;
+}
+
+[data-theme="hc-dark"] {
+  --ink-050: #FFFFFF;
+  --ink-400: #6E6A64;
+}
+
+[data-theme="hc-light"] {
+  --ink-900: #F4F1EA;
+  --ink-800: #EFEBE2;
+  --ink-700: #E7E2D7;
+  --ink-600: #D7D1C4;
+  --ink-400: #A39C90;
+  --ink-200: #6B655C;
+  --ink-050: #000000;
+  --accent: #B3612E;
+  --accent-dim: #C99B79;
+  --hold: #5C6857;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --motion-caret: 0ms;
+    --motion-panel-open: 0ms;
+    --motion-panel-close: 0ms;
+    --motion-wick-appear: 0ms;
+    --motion-wick-retract: 0ms;
+    --motion-glyph: 0ms;
+    --motion-clean-retract: 0ms;
+    --motion-flame-out: 0ms;
+  }
+}

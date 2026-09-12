@@ -1,0 +1,122 @@
+[
+  {
+    "id": "t3-001",
+    "tier": 3,
+    "text": "fix the timeout handling according to the requirement below\n---\n> all network requests must abort after thirty seconds\n> retry with exponential backoff up to three attempts",
+    "chars": 169
+  },
+  {
+    "id": "t3-002",
+    "tier": 3,
+    "text": "update the schema validation to match the revised payload specification\n---\n> incoming orders must include tenant id and customer reference\n> reject payloads missing either field with four hundred bad request",
+    "chars": 211
+  },
+  {
+    "id": "t3-003",
+    "tier": 3,
+    "text": "resolve the intermittent connection drop reported in production logs\n---\n> connection reset by peer on pool worker four\n> socket idle timeout exceeded after sixty seconds",
+    "chars": 172
+  },
+  {
+    "id": "t3-004",
+    "tier": 3,
+    "text": "refactor the price calculation according to the business rule\n---\n> apply ten percent discount when order total exceeds one hundred\n> round final currency values to two decimal places",
+    "chars": 186
+  },
+  {
+    "id": "t3-005",
+    "tier": 3,
+    "text": "implement the authentication token refresh policy below\n---\n> access tokens expire after fifteen minutes\n> refresh tokens remain valid for seven days unless revoked",
+    "chars": 170
+  },
+  {
+    "id": "t3-006",
+    "tier": 3,
+    "text": "fix the cache invalidation race condition described in the issue\n---\n> stale product data returned after concurrent update\n> cache key must be deleted before database commit",
+    "chars": 177
+  },
+  {
+    "id": "t3-007",
+    "tier": 3,
+    "text": "align the rate limiter behavior with the api gateway rules\n---\n> anonymous clients allowed sixty requests per minute\n> authenticated clients allowed six hundred requests per minute",
+    "chars": 183
+  },
+  {
+    "id": "t3-008",
+    "tier": 3,
+    "text": "handle the database migration failure shown in the deployment log\n---\n> cannot drop column user id because foreign key constraint exists\n> drop constraint before modifying table columns",
+    "chars": 186
+  },
+  {
+    "id": "t3-009",
+    "tier": 3,
+    "text": "implement the soft delete policy across customer records\n---\n> records must not be deleted permanently\n> set deleted at timestamp and filter from standard queries",
+    "chars": 167
+  },
+  {
+    "id": "t3-010",
+    "tier": 3,
+    "text": "reproduce and fix the crash reported during batch export\n---\n> out of memory error during json serialization of large array\n> stream rows directly to disk instead of buffering in memory",
+    "chars": 184
+  },
+  {
+    "id": "t3-011",
+    "tier": 3,
+    "text": "update password policy checks according to the compliance memo\n---\n> minimum length is twelve characters\n> reject passwords found in the common breached list",
+    "chars": 161
+  },
+  {
+    "id": "t3-012",
+    "tier": 3,
+    "text": "adjust the worker queue concurrency according to load metrics\n---\n> queue backlog exceeds five thousand messages during peak hours\n> scale worker pool from four to sixteen concurrent workers",
+    "chars": 189
+  },
+  {
+    "id": "t3-013",
+    "tier": 3,
+    "text": "enforce the data retention schedule defined by the security team\n---\n> audit log records older than ninety days must be archived\n> purge raw request logs after fourteen days",
+    "chars": 174
+  },
+  {
+    "id": "t3-014",
+    "tier": 3,
+    "text": "correct the timezone conversion bug reported by international users\n---\n> daily summary report shows orders on the wrong calendar date\n> store all timestamps in utc and format in user local zone",
+    "chars": 194
+  },
+  {
+    "id": "t3-015",
+    "tier": 3,
+    "text": "patch the security vulnerability flagged in the static analysis report\n---\n> potential cross site scripting in markdown rendering\n> sanitize all rendered html before insertion into the dom",
+    "chars": 190
+  },
+  {
+    "id": "t3-016",
+    "tier": 3,
+    "text": "implement the webhook delivery retry schedule\n---\n> retry failed deliveries at intervals of one five and fifteen minutes\n> mark delivery as permanently failed after three unsuccessful tries",
+    "chars": 187
+  },
+  {
+    "id": "t3-017",
+    "tier": 3,
+    "text": "reconcile payment records against the settlement statement\n---\n> pending settlement amount does not match ledger balance\n> flag mismatched transaction identifiers for manual review",
+    "chars": 183
+  },
+  {
+    "id": "t3-018",
+    "tier": 3,
+    "text": "configure the circuit breaker parameters for the remote search service\n---\n> open circuit after five consecutive connection timeouts\n> attempt probe request after thirty seconds in open state",
+    "chars": 194
+  },
+  {
+    "id": "t3-019",
+    "tier": 3,
+    "text": "rewrite the file upload validator to respect storage quotas\n---\n> maximum single file size is twenty megabytes\n> reject files with extensions outside the permitted image list",
+    "chars": 177
+  },
+  {
+    "id": "t3-020",
+    "tier": 3,
+    "text": "update the telemetry exporter configuration as requested by ops\n---\n> batch metrics in groups of one hundred events\n> flush metrics buffer every ten seconds or on process termination",
+    "chars": 186
+  }
+]

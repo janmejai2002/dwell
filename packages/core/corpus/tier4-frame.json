@@ -1,0 +1,122 @@
+[
+  {
+    "id": "t4-001",
+    "tier": 4,
+    "text": "Goal\nmake the user lookup idempotent and cache safe\nContext\nconcurrent requests currently hit the database simultaneously causing pool exhaustion\nConstraints\ndo not modify database schema\ncache ttl must not exceed sixty seconds\nDone\nload test shows zero pool exhaustion under five hundred concurrent requests",
+    "chars": 307
+  },
+  {
+    "id": "t4-002",
+    "tier": 4,
+    "text": "Goal\nrefactor the payment refund handler to use atomic transactions\nContext\npartial refund failures leave order records in inconsistent state\nConstraints\nmust wrap external gateway call and database write\nnever log credit card numbers or secrets\nDone\nintegration tests pass ten times consecutively with simulated gateway errors",
+    "chars": 331
+  },
+  {
+    "id": "t4-003",
+    "tier": 4,
+    "text": "Goal\nimplement backpressure in the event stream consumer\nContext\nheavy burst ingestion crashes workers with out of memory errors\nConstraints\npause consumption when buffer reaches one thousand messages\nresume only after buffer drops below two hundred\nDone\nconsumer runs without memory growth during thirty minute soak test",
+    "chars": 323
+  },
+  {
+    "id": "t4-004",
+    "tier": 4,
+    "text": "Goal\nadd tenant isolation to the product catalog queries\nContext\nmulti tenant deployment must prevent cross tenant data leakage\nConstraints\nfilter by tenant id on every select query\ndo not rely on application layer filtering alone\nDone\ntest suite asserts cross tenant access attempts return empty results",
+    "chars": 306
+  },
+  {
+    "id": "t4-005",
+    "tier": 4,
+    "text": "Goal\noptimize the search autocomplete endpoint latency\nContext\np99 latency currently exceeds two hundred milliseconds on mobile\nConstraints\nresponse time must stay under thirty milliseconds\ndo not introduce external search infrastructure\nDone\nbenchmark report confirms p99 latency below twenty five milliseconds",
+    "chars": 313
+  },
+  {
+    "id": "t4-006",
+    "tier": 4,
+    "text": "Goal\nreplace synchronous file writes with non blocking append stream\nContext\nrequest threads block during disk io spikes under high concurrency\nConstraints\nmaintain chronological line ordering\nflush buffer every two seconds\nDone\nthroughput benchmark shows zero blocked worker threads under load",
+    "chars": 298
+  },
+  {
+    "id": "t4-007",
+    "tier": 4,
+    "text": "Goal\nfix flaky race condition in session expiry test suite\nContext\ntest fails intermittently in continuous integration environments\nConstraints\ndo not use arbitrary sleep or timeout calls\nuse fake clock or explicit synchronization\nDone\ntest suite passes one hundred times in a loop without single failure",
+    "chars": 304
+  },
+  {
+    "id": "t4-008",
+    "tier": 4,
+    "text": "Goal\nimplement circuit breaker for the third party geocoding api\nContext\ngeocoding outages cascade and degrade core checkout experience\nConstraints\ntrip breaker after five consecutive timeouts\nfallback to cached postal code coordinates\nDone\nsimulated outage returns cached coordinates within ten milliseconds",
+    "chars": 313
+  },
+  {
+    "id": "t4-009",
+    "tier": 4,
+    "text": "Goal\nsplit large database migration into zero downtime batches\nContext\nlocking the users table blocks web traffic during deployment\nConstraints\nmigrate ten thousand rows per batch\nsleep two hundred milliseconds between batches\nDone\nmigration completes while read traffic experiences zero lock timeouts",
+    "chars": 305
+  },
+  {
+    "id": "t4-010",
+    "tier": 4,
+    "text": "Goal\nenforce strict rate limiting on the password reset endpoint\nContext\nbrute force attempts against reset tokens detected in traffic logs\nConstraints\nmaximum five attempts per email per hour\nreturn generic status code regardless of email existence\nDone\nsixth attempt from same ip returns four two nine too many requests",
+    "chars": 320
+  },
+  {
+    "id": "t4-011",
+    "tier": 4,
+    "text": "Goal\nmigrate authentication secrets to environment variables\nContext\nhardcoded api keys found in repository history during security review\nConstraints\nfail fast at application startup if secrets missing\nnever commit default keys to version control\nDone\napplication starts successfully with provided environment configuration",
+    "chars": 329
+  },
+  {
+    "id": "t4-012",
+    "tier": 4,
+    "text": "Goal\nadd structured json logging to the order processing pipeline\nContext\nunstructured text logs make correlation across microservices difficult\nConstraints\ninclude trace id and span id on every log line\nexclude customer payment details\nDone\nlog validator verifies all emitted lines parse as valid json objects",
+    "chars": 315
+  },
+  {
+    "id": "t4-013",
+    "tier": 4,
+    "text": "Goal\nprune orphaned storage blobs uploaded by abandoned sessions\nContext\nstorage costs increasing due to incomplete file uploads\nConstraints\nonly delete blobs created more than twenty four hours ago\nrun cleanup as low priority background job\nDone\ncleanup job deletes orphaned test blobs while leaving active files intact",
+    "chars": 324
+  },
+  {
+    "id": "t4-014",
+    "tier": 4,
+    "text": "Goal\nimplement optimistic concurrency control on inventory counts\nContext\nconcurrent purchases result in overselling limited stock items\nConstraints\nuse version number check on update\nretry conflict up to three times before failing\nDone\nconcurrency test proves exactly twenty items sold from stock of twenty",
+    "chars": 311
+  },
+  {
+    "id": "t4-015",
+    "tier": 4,
+    "text": "Goal\ndefer email dispatch to background task queue\nContext\nwaiting for smtp connection delays response to client\nConstraints\nreturn immediate response to user\nretry failed email delivery with backoff\nDone\napi response time drops below one hundred milliseconds",
+    "chars": 260
+  },
+  {
+    "id": "t4-016",
+    "tier": 4,
+    "text": "Goal\nvalidate webhook payloads with hmac signature check\nContext\nforged webhook requests could trigger unauthorized account updates\nConstraints\nuse timing safe comparison function\nreject timestamps older than five minutes\nDone\ntest verifies valid signatures accepted and forged ones rejected with four zero one",
+    "chars": 314
+  },
+  {
+    "id": "t4-017",
+    "tier": 4,
+    "text": "Goal\nadd database health check probe for orchestrator readiness\nContext\norchestrator routes traffic before database pool is initialized\nConstraints\nprobe must execute lightweight ping query\ntimeout after two seconds\nDone\nprobe returns two hundred when connected and five zero three when database down",
+    "chars": 300
+  },
+  {
+    "id": "t4-018",
+    "tier": 4,
+    "text": "Goal\nextract currency conversion logic into standalone pure function\nContext\ncurrency rounding bugs found across billing and invoicing modules\nConstraints\nno external api calls inside calculation\nuse integer cents to avoid floating point drift\nDone\nunit tests verify precision across twenty currency pairs",
+    "chars": 305
+  },
+  {
+    "id": "t4-019",
+    "tier": 4,
+    "text": "Goal\nimplement graceful shutdown for worker process\nContext\nterminating workers mid task leaves queue items in locked state\nConstraints\nallow current task thirty seconds to finish\nrefuse new tasks after sigterm received\nDone\nsimulated termination allows running task to finish and re-queues others",
+    "chars": 296
+  },
+  {
+    "id": "t4-020",
+    "tier": 4,
+    "text": "Goal\nadd gzip compression to static asset responses\nContext\nlarge javascript bundles increase initial page load times\nConstraints\ncompress files larger than one kilobyte\ncache compressed output on disk\nDone\nhttp response headers confirm content encoding is gzip for bundle files",
+    "chars": 277
+  }
+]

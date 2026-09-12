@@ -1,0 +1,122 @@
+[
+  {
+    "id": "t2-001",
+    "tier": 2,
+    "text": "fetch user profile from the database\nvalidate the email format with a regex\nreturn a four hundred error on invalid input\ncache the valid profile for ten minutes",
+    "chars": 164
+  },
+  {
+    "id": "t2-002",
+    "tier": 2,
+    "text": "find all slow database queries in the logs\nadd an index on the foreign key column\nrerun the benchmark to measure latency\nverify the query plan uses the new index",
+    "chars": 165
+  },
+  {
+    "id": "t2-003",
+    "tier": 2,
+    "text": "parse the incoming webhook payload\nverify the cryptographic signature header\nqueue a background task for processing\nrespond with an immediate two hundred ok",
+    "chars": 160
+  },
+  {
+    "id": "t2-004",
+    "tier": 2,
+    "text": "read the configuration file from disk\nparse the yaml into typed settings\nfail fast if required keys are missing\npass the settings to the server factory",
+    "chars": 154
+  },
+  {
+    "id": "t2-005",
+    "tier": 2,
+    "text": "listen for incoming websocket connections\nhandle client heartbeat ping messages\nbroadcast state updates to connected peers\nclean up disconnected client sockets",
+    "chars": 165
+  },
+  {
+    "id": "t2-006",
+    "tier": 2,
+    "text": "inspect the memory heap profile snapshot\nidentify detached dom node references\nremove lingering event listener bindings\nverify garbage collection reclaims space",
+    "chars": 165
+  },
+  {
+    "id": "t2-007",
+    "tier": 2,
+    "text": "extract authentication token from header\ndecode the payload claims without verification\nverify the signature against public key\nattach the decoded claims to request context",
+    "chars": 178
+  },
+  {
+    "id": "t2-008",
+    "tier": 2,
+    "text": "read batch of records from the queue\ntransform each record to the target schema\nwrite the batch to the target table\nacknowledge the processed messages",
+    "chars": 153
+  },
+  {
+    "id": "t2-009",
+    "tier": 2,
+    "text": "check if the requested file exists in storage\ngenerate a signed download url with short expiry\nrecord the download event in the audit table\nredirect the client to the storage provider",
+    "chars": 184
+  },
+  {
+    "id": "t2-010",
+    "tier": 2,
+    "text": "acquire a distributed lock on the resource\nrun the critical reconciliation routine\nrelease the lock in a finally block\nlog the duration of the locked operation",
+    "chars": 164
+  },
+  {
+    "id": "t2-011",
+    "tier": 2,
+    "text": "inspect all pending order records\nflag orders awaiting payment confirmation\nnotify the fulfillment service of ready orders\nupdate the status timestamps in the database",
+    "chars": 172
+  },
+  {
+    "id": "t2-012",
+    "tier": 2,
+    "text": "intercept outgoing network requests\nadd correlation id header to every request\nlog request method and target pathname\nmeasure round trip time upon response",
+    "chars": 158
+  },
+  {
+    "id": "t2-013",
+    "tier": 2,
+    "text": "pull the latest container image from registry\nrun database schema migrations in a pre-step\nspin up new containers alongside old ones\nshift traffic gradually using weighted routing",
+    "chars": 181
+  },
+  {
+    "id": "t2-014",
+    "tier": 2,
+    "text": "parse the search query into tokens\napply stemming and stop word filtering\nscore matching documents with bm25 ranking\nreturn top twenty documents with highlights",
+    "chars": 164
+  },
+  {
+    "id": "t2-015",
+    "tier": 2,
+    "text": "check rate limit counter for the client ip\nincrement counter in atomic redis transaction\nset expiry if this is a new window\nreject request with four two nine if over limit",
+    "chars": 173
+  },
+  {
+    "id": "t2-016",
+    "tier": 2,
+    "text": "load the source csv file into memory\nvalidate column headers against schema\nconvert date strings to unix timestamps\nexport normalized rows to parquet format",
+    "chars": 156
+  },
+  {
+    "id": "t2-017",
+    "tier": 2,
+    "text": "watch the local directory for file changes\ndebounce rapid successive change events\ntrigger incremental compiler build step\nreload connected browser clients via websocket",
+    "chars": 174
+  },
+  {
+    "id": "t2-018",
+    "tier": 2,
+    "text": "fetch exchange rates from upstream api\nvalidate response contains required currency pairs\nupdate local in-memory currency table\nschedule next refresh in fifteen minutes",
+    "chars": 170
+  },
+  {
+    "id": "t2-019",
+    "tier": 2,
+    "text": "scan source tree for deprecated function calls\nreplace calls with the modern equivalent\nrun unit tests to ensure behavior is unchanged\nformat modified source files according to style guide",
+    "chars": 190
+  },
+  {
+    "id": "t2-020",
+    "tier": 2,
+    "text": "extract error details from caught exception\nmask sensitive credentials and tokens\nsend alert to the on-call monitoring channel\nreturn a safe generic error to the caller",
+    "chars": 170
+  }
+]

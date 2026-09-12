@@ -1,0 +1,15 @@
+{
+  "name": "tests",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "playwright test",
+    "test:perf": "playwright test tests/perf",
+    "test:visual": "playwright test tests/visual"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.49.0",
+    "typescript": "^5.5.0"
+  }
+}

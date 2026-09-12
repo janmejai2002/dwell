@@ -1,0 +1,162 @@
+[
+  {
+    "id": "t5-001",
+    "tier": 5,
+    "text": "Goal\nmake retry idempotent\nContext\nduplicate payment submissions\nConstraints\ncheck idempotency key\nDone\nno double charge in test",
+    "chars": 128,
+    "sections": ["Goal", "Context", "Constraints", "Done"],
+    "keyTerms": ["retry", "idempotent", "duplicate", "payment", "charge"]
+  },
+  {
+    "id": "t5-002",
+    "tier": 5,
+    "text": "Goal\nadd user cache\nContext\nhigh database read load\nConstraints\nfive minute ttl\nDone\ncache hit ratio above eighty percent",
+    "chars": 124,
+    "sections": ["Goal", "Context", "Constraints", "Done"],
+    "keyTerms": ["user", "cache", "database", "ttl", "ratio"]
+  },
+  {
+    "id": "t5-003",
+    "tier": 5,
+    "text": "Goal\nfix race condition\nContext\nconcurrent order updates\nConstraints\nuse version check\nDone\nzero lost updates under test",
+    "chars": 124,
+    "sections": ["Goal", "Context", "Constraints", "Done"],
+    "keyTerms": ["race", "condition", "order", "version", "updates"]
+  },
+  {
+    "id": "t5-004",
+    "tier": 5,
+    "text": "Goal\nrate limit logins\nContext\nbrute force password guessing\nConstraints\nfive attempts per ip\nDone\nsixth attempt blocked",
+    "chars": 126,
+    "sections": ["Goal", "Context", "Constraints", "Done"],
+    "keyTerms": ["limit", "logins", "brute", "attempts", "blocked"]
+  },
+  {
+    "id": "t5-005",
+    "tier": 5,
+    "text": "Goal\nstream file export\nContext\nout of memory on large files\nConstraints\nbuffer under ten megabytes\nDone\nexport passes memory test",
+    "chars": 136,
+    "sections": ["Goal", "Context", "Constraints", "Done"],
+    "keyTerms": ["stream", "export", "memory", "buffer", "test"]
+  },
+  {
+    "id": "t5-006",
+    "tier": 5,
+    "text": "Goal\nsanitize user input\nContext\npotential sql injection\nConstraints\nuse parameter binding\nDone\nsecurity scanner reports clean",
+    "chars": 133,
+    "sections": ["Goal", "Context", "Constraints", "Done"],
+    "keyTerms": ["sanitize", "input", "sql", "parameter", "clean"]
+  },
+  {
+    "id": "t5-007",
+    "tier": 5,
+    "text": "Goal\ndefer email sending\nContext\nslow api response time\nConstraints\nuse background worker\nDone\nresponse under fifty milliseconds",
+    "chars": 136,
+    "sections": ["Goal", "Context", "Constraints", "Done"],
+    "keyTerms": ["defer", "email", "response", "worker", "milliseconds"]
+  },
+  {
+    "id": "t5-008",
+    "tier": 5,
+    "text": "Goal\nadd graceful shutdown\nContext\ntasks dropped on restart\nConstraints\nfinish active jobs\nDone\nzero dropped tasks during deploy",
+    "chars": 134,
+    "sections": ["Goal", "Context", "Constraints", "Done"],
+    "keyTerms": ["graceful", "shutdown", "restart", "active", "deploy"]
+  },
+  {
+    "id": "t5-009",
+    "tier": 5,
+    "text": "Goal\nmask secret tokens\nContext\napi keys leak in logs\nConstraints\nreplace with asterisks\nDone\nlog auditor finds zero keys",
+    "chars": 124,
+    "sections": ["Goal", "Context", "Constraints", "Done"],
+    "keyTerms": ["mask", "secret", "keys", "logs", "auditor"]
+  },
+  {
+    "id": "t5-010",
+    "tier": 5,
+    "text": "Goal\nindex foreign keys\nContext\nslow order query joins\nConstraints\ndo not lock table\nDone\nquery time drops by ninety percent",
+    "chars": 129,
+    "sections": ["Goal", "Context", "Constraints", "Done"],
+    "keyTerms": ["index", "foreign", "query", "lock", "percent"]
+  },
+  {
+    "id": "t5-011",
+    "tier": 5,
+    "text": "Goal\nverify webhook signatures\nContext\nforged event payloads\nConstraints\nconstant time comparison\nDone\ninvalid signatures rejected",
+    "chars": 138,
+    "sections": ["Goal", "Context", "Constraints", "Done"],
+    "keyTerms": ["verify", "webhook", "signatures", "constant", "rejected"]
+  },
+  {
+    "id": "t5-012",
+    "tier": 5,
+    "text": "Goal\nprune stale sessions\nContext\nsession table growing rapidly\nConstraints\nonly delete expired rows\nDone\nnightly cron clears stale rows",
+    "chars": 143,
+    "sections": ["Goal", "Context", "Constraints", "Done"],
+    "keyTerms": ["prune", "stale", "sessions", "expired", "cron"]
+  },
+  {
+    "id": "t5-013",
+    "tier": 5,
+    "text": "Goal\nbackoff failed requests\nContext\nupstream rate limit hits\nConstraints\nexponential backoff\nDone\nzero four two nine errors logged",
+    "chars": 138,
+    "sections": ["Goal", "Context", "Constraints", "Done"],
+    "keyTerms": ["backoff", "requests", "upstream", "exponential", "errors"]
+  },
+  {
+    "id": "t5-014",
+    "tier": 5,
+    "text": "Goal\nisolate tenant records\nContext\nmulti tenant data leakage\nConstraints\nfilter by tenant id\nDone\ncross tenant access test returns empty",
+    "chars": 147,
+    "sections": ["Goal", "Context", "Constraints", "Done"],
+    "keyTerms": ["isolate", "tenant", "records", "filter", "empty"]
+  },
+  {
+    "id": "t5-015",
+    "tier": 5,
+    "text": "Goal\ncompress text responses\nContext\nhigh network bandwidth usage\nConstraints\nuse gzip for json\nDone\npayload size reduced by half",
+    "chars": 134,
+    "sections": ["Goal", "Context", "Constraints", "Done"],
+    "keyTerms": ["compress", "responses", "bandwidth", "gzip", "payload"]
+  },
+  {
+    "id": "t5-016",
+    "tier": 5,
+    "text": "Goal\nfix flaky timeout test\nContext\ntest fails on busy ci runners\nConstraints\nno fixed sleep calls\nDone\ntest passes twenty times in row",
+    "chars": 140,
+    "sections": ["Goal", "Context", "Constraints", "Done"],
+    "keyTerms": ["flaky", "timeout", "test", "sleep", "passes"]
+  },
+  {
+    "id": "t5-017",
+    "tier": 5,
+    "text": "Goal\nadd health check probe\nContext\nload balancer routes to dead pods\nConstraints\ntwo second timeout\nDone\nprobe returns five zero three when down",
+    "chars": 155,
+    "sections": ["Goal", "Context", "Constraints", "Done"],
+    "keyTerms": ["health", "check", "balancer", "timeout", "probe"]
+  },
+  {
+    "id": "t5-018",
+    "tier": 5,
+    "text": "Goal\nprevent duplicate orders\nContext\ndouble click on checkout button\nConstraints\ndisable submit on click\nDone\nsingle order created on double click",
+    "chars": 154,
+    "sections": ["Goal", "Context", "Constraints", "Done"],
+    "keyTerms": ["prevent", "duplicate", "orders", "checkout", "submit"]
+  },
+  {
+    "id": "t5-019",
+    "tier": 5,
+    "text": "Goal\nclean up temp files\nContext\ndisk full errors on worker nodes\nConstraints\nremove files in finally block\nDone\nzero orphan files after job completion",
+    "chars": 159,
+    "sections": ["Goal", "Context", "Constraints", "Done"],
+    "keyTerms": ["clean", "temp", "files", "worker", "orphan"]
+  },
+  {
+    "id": "t5-020",
+    "tier": 5,
+    "text": "Goal\nadd structured logs\nContext\nunstructured text logs hard to search\nConstraints\nuse json with trace id\nDone\nall log output parses as json",
+    "chars": 144,
+    "sections": ["Goal", "Context", "Constraints", "Done"],
+    "keyTerms": ["structured", "logs", "search", "json", "trace"]
+  }
+]

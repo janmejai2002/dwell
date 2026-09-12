@@ -1,0 +1,16 @@
+{
+  "private": true,
+  "name": "dwell-workspace",
+  "scripts": {
+    "build": "pnpm -r build",
+    "test": "pnpm -r test",
+    "perf": "pnpm --filter tests test",
+    "package": "pnpm --filter dwell package"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

@@ -1,0 +1,159 @@
+/* Layout-only panel styles. No colour literals — use token variables only. */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--ink-900);
+  color: var(--ink-050);
+  font-family: var(--font-drill);
+  font-size: var(--size-drill);
+  line-height: var(--lh-drill);
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+#dwell-root {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  padding: var(--sp-6);
+  gap: var(--sp-8);
+}
+
+/* Wick container: fixed 16×40 box, top-left */
+#wick-container {
+  position: absolute;
+  top: var(--sp-6);
+  left: var(--sp-6);
+  width: var(--sp-4);
+  height: 40px;
+  contain: strict;
+}
+
+/* Drill text area */
+#drill-container {
+  flex: 1 1 auto;
+  min-height: 0;
+  max-width: 62ch;
+  padding-left: calc(var(--sp-4) + var(--sp-4));
+  contain: strict;
+  overflow: hidden;
+}
+
+/* Metric strip: sits below the drill, separated by sp-8 gap */
+#metrics-strip {
+  display: flex;
+  align-items: baseline;
+  gap: var(--sp-6);
+  padding: var(--sp-2) 0;
+  border-top: 1px solid var(--ink-600);
+  font-family: var(--font-mono);
+  font-size: var(--size-mono);
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-200);
+}
+
+/* Trace: the 20-hairline history strip */
+#trace-container {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: var(--sp-8);
+  padding: var(--sp-1) 0;
+}
+
+/* Idle info line */
+#idle-info {
+  font-family: var(--font-mono);
+  font-size: var(--size-mono);
+  color: var(--ink-200);
+  padding: var(--sp-1) 0;
+}
+
+/* Glyph states */
+.glyph {
+  display: inline;
+  color: var(--ink-400);
+  transition: color var(--motion-glyph) linear;
+}
+
+.glyph.struck {
+  color: var(--ink-050);
+}
+
+.glyph.missed {
+  color: var(--ink-400);
+  border-bottom: 2px solid var(--ink-200);
+}
+
+.glyph.corrected {
+  border-bottom: 1px solid var(--ink-600);
+}
+
+/* Caret */
+.caret {
+  position: absolute;
+  width: 2px;
+  background: var(--accent);
+  will-change: transform;
+  transition: transform var(--motion-caret) cubic-bezier(.2, .8, .2, 1);
+}
+
+.caret--dimmed {
+  background: var(--accent-dim);
+}
+
+/* Clean-run rule */
+.clean-rule {
+  height: 1px;
+  background: var(--hold);
+  transform-origin: left;
+  transform: scaleX(0);
+}
+
+.clean-rule--retract {
+  transition: transform var(--motion-clean-retract) cubic-bezier(.4, 0, .2, 1);
+}
+
+/* Wick flame */
+.wick-line {
+  width: 2px;
+  background: var(--accent);
+}
+
+.wick-flame {
+  width: 5px;
+  height: 8px;
+  background: var(--accent);
+  will-change: transform;
+}
+
+.wick-flame--out {
+  opacity: 0;
+  transition: opacity var(--motion-flame-out) cubic-bezier(.4, 0, 1, 1);
+}
+
+/* Wick speech */
+.wick-speech {
+  font-family: var(--font-drill);
+  font-size: var(--size-label);
+  letter-spacing: 0.02em;
+  color: var(--ink-200);
+}
+
+/* Trace hairlines */
+.trace-bar {
+  width: 1px;
+  background: var(--ink-600);
+}
+
+.trace-bar--recent {
+  background: var(--ink-200);
+}

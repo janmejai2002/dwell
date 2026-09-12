@@ -1,0 +1,71 @@
+{
+  "name": "dwell",
+  "displayName": "Dwell",
+  "description": "Prompt-writing drills while your agent works",
+  "version": "0.1.0",
+  "publisher": "dwell",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dwell/dwell"
+  },
+  "engines": {
+    "vscode": "^1.93.0"
+  },
+  "categories": ["Other"],
+  "activationEvents": ["onStartupFinished"],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "views": {
+      "dwell-panel": [
+        {
+          "id": "dwell.drillView",
+          "name": "Dwell",
+          "type": "webview"
+        }
+      ]
+    },
+    "viewsContainers": {
+      "panel": [
+        {
+          "id": "dwell-panel",
+          "title": "Dwell",
+          "icon": "media/icon.svg"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "dwell.toggle",
+        "title": "Toggle Dwell"
+      },
+      {
+        "command": "dwell.showDetectionLog",
+        "title": "Dwell: Show Detection Log"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "dwell.toggle",
+        "key": "ctrl+alt+space",
+        "mac": "cmd+alt+space",
+        "when": "!terminalFocus"
+      }
+    ]
+  },
+  "scripts": {
+    "build": "node esbuild.config.mjs",
+    "package": "vsce package --no-dependencies",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@dwell/core": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.93.0",
+    "@vscode/vsce": "^3.0.0",
+    "esbuild": "^0.24.0",
+    "typescript": "^5.5.0",
+    "vitest": "^3.2.0"
+  }
+}

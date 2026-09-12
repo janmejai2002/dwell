@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dwell Harness</title>
+  <link rel="stylesheet" href="../../packages/webview/src/styles/tokens.css">
+  <link rel="stylesheet" href="../../packages/webview/src/styles/panel.css">
+  <style>
+    /* Harness controls — uses token variables, no colour literals */
+    #harness-controls {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--sp-2);
+      padding: var(--sp-3);
+      border-bottom: 1px solid var(--ink-600);
+      font-family: var(--font-mono);
+      font-size: var(--size-label);
+      color: var(--ink-200);
+      background: var(--ink-700);
+    }
+
+    #harness-controls button {
+      background: var(--ink-600);
+      color: var(--ink-050);
+      border: 1px solid var(--ink-400);
+      padding: var(--sp-1) var(--sp-2);
+      font-family: var(--font-mono);
+      font-size: var(--size-label);
+      cursor: pointer;
+      border-radius: 2px;
+    }
+
+    #harness-controls button:hover {
+      background: var(--ink-400);
+    }
+
+    #harness-controls label {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-1);
+    }
+
+    #width-slider {
+      width: 120px;
+    }
+
+    #webview-frame {
+      position: relative;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+    }
+  </style>
+</head>
+<body>
+  <div id="harness-controls">
+    <button id="btn-theme-dark" type="button">dark</button>
+    <button id="btn-theme-light" type="button">light</button>
+    <button id="btn-theme-hc-dark" type="button">hc-dark</button>
+    <button id="btn-theme-hc-light" type="button">hc-light</button>
+    <span>|</span>
+    <button id="btn-reveal" type="button">reveal</button>
+    <button id="btn-agent-start" type="button">agent:start</button>
+    <button id="btn-agent-end" type="button">agent:end</button>
+    <span>|</span>
+    <label>
+      <input type="checkbox" id="chk-reduced-motion">
+      reduced motion
+    </label>
+    <label>
+      width
+      <input type="range" id="width-slider" min="280" max="800" value="500">
+    </label>
+  </div>
+  <div id="webview-frame">
+    <div id="dwell-root">
+      <div id="wick-container" style="contain: strict;"></div>
+      <div id="drill-container" style="contain: strict;"></div>
+      <div id="metrics-strip"></div>
+      <div id="trace-container"></div>
+      <div id="idle-info"></div>
+    </div>
+  </div>
+  <script type="module" src="./src/mock-host.ts"></script>
+</body>
+</html>

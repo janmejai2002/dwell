@@ -1,0 +1,4 @@
+src/
+test/
+esbuild.config.mjs
+tsconfig.json
