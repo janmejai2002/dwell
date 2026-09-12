@@ -3,7 +3,15 @@
  *
  * Fakes acquireVsCodeApi and the host message protocol so the
  * webview can run outside VS Code for visual verification.
+ * Loads the full 120-item corpus across all 6 tiers.
  */
+
+import tier1Items from '../../../packages/core/corpus/tier1-plain.json';
+import tier2Items from '../../../packages/core/corpus/tier2-break.json';
+import tier3Items from '../../../packages/core/corpus/tier3-rule.json';
+import tier4Items from '../../../packages/core/corpus/tier4-frame.json';
+import tier5Items from '../../../packages/core/corpus/tier5-recall.json';
+import tier6Items from '../../../packages/core/corpus/tier6-cold.json';
 
 // ---------- Mock VS Code API ----------
 
@@ -37,6 +45,26 @@ const mockVsCodeApi = {
 // Expose globally so the webview can call acquireVsCodeApi()
 (globalThis as unknown as Record<string, unknown>)['acquireVsCodeApi'] = () => mockVsCodeApi;
 
+// ---------- Corpus Data (120 drills) ----------
+
+interface DrillItem {
+  id: string;
+  tier: number;
+  text: string;
+}
+
+const CORPUS: Record<number, DrillItem[]> = {
+  1: tier1Items,
+  2: tier2Items,
+  3: tier3Items,
+  4: tier4Items,
+  5: tier5Items,
+  6: tier6Items,
+};
+
+let currentTier = 1;
+let currentDrillIndex = 0;
+
 // ---------- Message handling ----------
 
 function handleWebviewMessage(msg: { v: number; type: string }): void {
@@ -49,7 +77,11 @@ function handleWebviewMessage(msg: { v: number; type: string }): void {
     case 'run:complete':
       console.log('[host] run complete');
       const statusEl = document.getElementById('panel-status');
-      if (statusEl) statusEl.textContent = 'DRILL COMPLETE';
+      if (statusEl) statusEl.textContent = 'DRILL COMPLETE! NEXT IN 1.2s';
+      setTimeout(() => {
+        currentDrillIndex++;
+        updateDrillDisplay();
+      }, 1200);
       break;
     case 'run:abandon':
       console.log('[host] run abandoned');
@@ -59,16 +91,27 @@ function handleWebviewMessage(msg: { v: number; type: string }): void {
   }
 }
 
-const TIER_DRILLS: Record<number, string> = {
-  1: 'refactor the endpoint to use idempotent schema validation',
-  2: 'split the controller into service and router\nuse dependency injection for the repository\nensure all database queries are scoped',
-  3: 'review the authentication middleware\n---\n> verify the bearer token\n> enforce session expiration\n---',
-  4: 'Goal: Add rate limiting to public endpoints\nContext: Express app behind nginx\nConstraints: In-memory store only\nDone: Returns 429 after 100 requests',
-  5: 'implement idempotent schema migrations',
-  6: 'add distributed tracing to all external service calls',
-};
+function updateDrillDisplay(): void {
+  const items = CORPUS[currentTier] || CORPUS[1]!;
+  if (currentDrillIndex >= items.length) currentDrillIndex = 0;
+  if (currentDrillIndex < 0) currentDrillIndex = items.length - 1;
 
-let currentTier = 1;
+  const drill = items[currentDrillIndex]!;
+  const counterEl = document.getElementById('drill-counter');
+  if (counterEl) {
+    counterEl.textContent = `${currentDrillIndex + 1}/${items.length}`;
+  }
+
+  const statusEl = document.getElementById('panel-status');
+  if (statusEl) {
+    statusEl.textContent = `TIER ${currentTier} · ${drill.id.toUpperCase()}`;
+  }
+
+  const loadDrill = (globalThis as unknown as Record<string, (text: string) => void>)['__dwell_loadDrill'];
+  if (loadDrill) {
+    loadDrill(drill.text);
+  }
+}
 
 function onWebviewReady(): void {
   // Send restored state
@@ -87,14 +130,10 @@ function onWebviewReady(): void {
     kind: document.documentElement.getAttribute('data-theme') ?? 'dark',
   });
 
-  // Auto-reveal with a tier 1 drill
+  // Auto-reveal with initial drill
   setTimeout(() => {
     postToWebview({ v: 1, type: 'reveal', reason: 'first-run' });
-
-    const loadDrill = (globalThis as unknown as Record<string, (text: string) => void>)['__dwell_loadDrill'];
-    if (loadDrill) {
-      loadDrill(TIER_DRILLS[1]!);
-    }
+    updateDrillDisplay();
   }, 100);
 }
 
@@ -120,7 +159,7 @@ function setupControls(): void {
     });
   }
 
-  // Tier buttons
+  // Tier buttons (1 to 6)
   for (let tier = 1; tier <= 6; tier++) {
     const btn = document.getElementById(`btn-tier-${tier}`);
     btn?.addEventListener('click', (e) => {
@@ -129,26 +168,38 @@ function setupControls(): void {
         document.getElementById(`btn-tier-${t}`)?.classList.toggle('active', t === tier);
       }
       currentTier = tier;
-      const drillText = TIER_DRILLS[tier] || TIER_DRILLS[1]!;
-      const loadDrill = (globalThis as unknown as Record<string, (text: string) => void>)['__dwell_loadDrill'];
-      if (loadDrill) {
-        loadDrill(drillText);
-      }
-      const statusEl = document.getElementById('panel-status');
-      if (statusEl) statusEl.textContent = `TIER ${tier} ACTIVE`;
+      currentDrillIndex = 0;
+      updateDrillDisplay();
     });
   }
+
+  // Previous drill button
+  document.getElementById('btn-prev-drill')?.addEventListener('click', (e) => {
+    (e.currentTarget as HTMLElement).blur();
+    currentDrillIndex--;
+    updateDrillDisplay();
+  });
+
+  // Next drill button
+  document.getElementById('btn-next-drill')?.addEventListener('click', (e) => {
+    (e.currentTarget as HTMLElement).blur();
+    currentDrillIndex++;
+    updateDrillDisplay();
+  });
+
+  // Random / Shuffle drill button
+  document.getElementById('btn-random-drill')?.addEventListener('click', (e) => {
+    (e.currentTarget as HTMLElement).blur();
+    const count = CORPUS[currentTier]?.length || 20;
+    currentDrillIndex = Math.floor(Math.random() * count);
+    updateDrillDisplay();
+  });
 
   // Reveal button
   document.getElementById('btn-reveal')?.addEventListener('click', (e) => {
     (e.currentTarget as HTMLElement).blur();
     postToWebview({ v: 1, type: 'reveal', reason: 'hotkey' });
-    const loadDrill = (globalThis as unknown as Record<string, (text: string) => void>)['__dwell_loadDrill'];
-    if (loadDrill) {
-      loadDrill(TIER_DRILLS[currentTier]!);
-    }
-    const statusEl = document.getElementById('panel-status');
-    if (statusEl) statusEl.textContent = 'DRILL ACTIVE';
+    updateDrillDisplay();
   });
 
   // Agent start (arm wick)
@@ -216,7 +267,7 @@ function setupControls(): void {
     }
   });
 
-  // Clicking on webview frame focuses the typing area
+  // Focus on panel click
   const frame = document.getElementById('webview-frame');
   frame?.addEventListener('click', () => {
     window.focus();
@@ -225,9 +276,8 @@ function setupControls(): void {
 
 // ---------- Boot ----------
 
-// Import the webview entry point
 import('@dwell/webview/main').then(() => {
-  console.log('[harness] webview loaded');
+  console.log('[harness] webview loaded with 120-item corpus');
 }).catch((err) => {
   console.error('[harness] failed to load webview:', err);
 });
