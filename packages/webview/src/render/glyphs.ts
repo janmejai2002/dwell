@@ -20,17 +20,13 @@ export function buildGlyphTrack(container: HTMLElement, text: string): void {
     const ch = text[i]!;
 
     if (ch === '\n') {
-      // Line break — insert <br> then a glyph span for the newline char
-      container.appendChild(document.createElement('br'));
+      // Line break: place newline slot at the end of the line, then break
       const span = document.createElement('span');
-      span.className = 'glyph';
+      span.className = 'glyph glyph--newline';
       span.dataset['char'] = '\n';
-      // Visual representation: the newline "slot" is invisible but occupies a position
       span.textContent = ' ';
-      span.style.width = '0';
-      span.style.overflow = 'hidden';
-      span.style.display = 'inline-block';
       container.appendChild(span);
+      container.appendChild(document.createElement('br'));
     } else {
       const span = document.createElement('span');
       span.className = 'glyph';
@@ -43,18 +39,28 @@ export function buildGlyphTrack(container: HTMLElement, text: string): void {
 
 /**
  * Measure all glyph positions once into a Float32Array.
- * Layout: [x0, y0, x1, y1, ...] — one pair per glyph.
+ * Layout: [x0, y0, x1, y1, ...] — one pair per glyph, plus one terminal pair
+ * positioned immediately after the final glyph.
  * This is the only layout read in the lifecycle; the hot path never reads layout.
  */
 export function cacheOffsets(container: HTMLElement): Float32Array {
   const glyphs = container.querySelectorAll('.glyph');
-  const offsets = new Float32Array(glyphs.length * 2);
+  const offsets = new Float32Array((glyphs.length + 1) * 2);
+  const containerRect = container.getBoundingClientRect();
 
   for (let i = 0; i < glyphs.length; i++) {
-    const rect = (glyphs[i] as HTMLElement).getBoundingClientRect();
-    const containerRect = container.getBoundingClientRect();
+    const el = glyphs[i] as HTMLElement;
+    const rect = el.getBoundingClientRect();
     offsets[i * 2] = rect.left - containerRect.left;
     offsets[i * 2 + 1] = rect.top - containerRect.top;
+  }
+
+  // Terminal caret offset: immediately after the final character
+  if (glyphs.length > 0) {
+    const lastEl = glyphs[glyphs.length - 1] as HTMLElement;
+    const lastRect = lastEl.getBoundingClientRect();
+    offsets[glyphs.length * 2] = lastRect.right - containerRect.left;
+    offsets[glyphs.length * 2 + 1] = lastRect.top - containerRect.top;
   }
 
   return offsets;

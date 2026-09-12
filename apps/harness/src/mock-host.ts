@@ -272,6 +272,108 @@ function setupControls(): void {
   frame?.addEventListener('click', () => {
     window.focus();
   });
+
+  // Curriculum Browser Modal
+  const modal = document.getElementById('curriculum-modal');
+  const btnBrowseAll = document.getElementById('btn-browse-all');
+  const btnCloseModal = document.getElementById('btn-close-modal');
+  const drillListContainer = document.getElementById('modal-drill-list');
+
+  let modalActiveTier = 1;
+
+  function renderModalDrills(tier: number): void {
+    if (!drillListContainer) return;
+    drillListContainer.innerHTML = '';
+    const items = CORPUS[tier] || [];
+
+    for (let idx = 0; idx < items.length; idx++) {
+      const drill = items[idx]!;
+      const card = document.createElement('div');
+      card.style.background = 'var(--ink-700)';
+      card.style.border = '1px solid var(--ink-600)';
+      card.style.padding = '12px 14px';
+      card.style.borderRadius = '2px';
+      card.style.display = 'flex';
+      card.style.flexDirection = 'column';
+      card.style.gap = '8px';
+
+      const header = document.createElement('div');
+      header.style.display = 'flex';
+      header.style.justifyContent = 'space-between';
+      header.style.alignItems = 'center';
+
+      const idSpan = document.createElement('span');
+      idSpan.style.fontFamily = 'var(--font-mono)';
+      idSpan.style.fontSize = '12px';
+      idSpan.style.fontWeight = '600';
+      idSpan.style.color = 'var(--accent)';
+      idSpan.textContent = `#${idx + 1} · ${drill.id.toUpperCase()}`;
+
+      const typeBtn = document.createElement('button');
+      typeBtn.type = 'button';
+      typeBtn.textContent = 'Type This Drill ↵';
+      typeBtn.style.background = 'var(--ink-600)';
+      typeBtn.style.color = 'var(--ink-050)';
+      typeBtn.style.border = '1px solid var(--ink-400)';
+      typeBtn.style.padding = '3px 10px';
+      typeBtn.style.borderRadius = '2px';
+      typeBtn.style.fontSize = '11px';
+      typeBtn.style.fontFamily = 'var(--font-mono)';
+      typeBtn.style.cursor = 'pointer';
+      typeBtn.addEventListener('click', () => {
+        currentTier = tier;
+        currentDrillIndex = idx;
+        for (let t = 1; t <= 6; t++) {
+          document.getElementById(`btn-tier-${t}`)?.classList.toggle('active', t === tier);
+        }
+        updateDrillDisplay();
+        if (modal) modal.style.display = 'none';
+      });
+
+      header.appendChild(idSpan);
+      header.appendChild(typeBtn);
+
+      const textPre = document.createElement('pre');
+      textPre.style.margin = '0';
+      textPre.style.fontFamily = 'var(--font-drill)';
+      textPre.style.fontSize = '13px';
+      textPre.style.lineHeight = '1.45';
+      textPre.style.color = 'var(--ink-050)';
+      textPre.style.whiteSpace = 'pre-wrap';
+      textPre.textContent = drill.text;
+
+      card.appendChild(header);
+      card.appendChild(textPre);
+      drillListContainer.appendChild(card);
+    }
+  }
+
+  btnBrowseAll?.addEventListener('click', () => {
+    modalActiveTier = currentTier;
+    for (let t = 1; t <= 6; t++) {
+      document.getElementById(`modal-tab-${t}`)?.classList.toggle('active', t === modalActiveTier);
+    }
+    renderModalDrills(modalActiveTier);
+    if (modal) modal.style.display = 'flex';
+  });
+
+  btnCloseModal?.addEventListener('click', () => {
+    if (modal) modal.style.display = 'none';
+  });
+
+  modal?.addEventListener('click', (e) => {
+    if (e.target === modal) modal.style.display = 'none';
+  });
+
+  for (let t = 1; t <= 6; t++) {
+    document.getElementById(`modal-tab-${t}`)?.addEventListener('click', () => {
+      modalActiveTier = t;
+      for (let i = 1; i <= 6; i++) {
+        document.getElementById(`modal-tab-${i}`)?.classList.toggle('active', i === t);
+      }
+      renderModalDrills(t);
+    });
+  }
 }
 
 // ---------- Boot ----------

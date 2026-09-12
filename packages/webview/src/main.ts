@@ -8,7 +8,7 @@
 
 import './styles/tokens.css';
 import './styles/panel.css';
-import { buildGlyphTrack, cacheOffsets, cacheGlyphElements, updateGlyph, getExpectedChar } from './render/glyphs';
+import { buildGlyphTrack, cacheOffsets, cacheGlyphElements, updateGlyph, getExpectedChar, getGlyphCount } from './render/glyphs';
 import { initCaret, moveCaret } from './render/caret';
 import { initWick, updateWick, extinguishWick, relightWick } from './render/wick';
 import { renderTrace } from './render/trace';
@@ -142,7 +142,7 @@ function processKeystroke(entry: KeystrokeEntry): void {
 function handleCharacter(char: string, interval: number): void {
   if (!glyphOffsets) return;
 
-  const totalGlyphs = glyphOffsets.length / 2;
+  const totalGlyphs = getGlyphCount();
   if (cursorIndex >= totalGlyphs) return;
 
   const expected = getExpectedChar(cursorIndex);
@@ -174,11 +174,12 @@ function handleCharacter(char: string, interval: number): void {
     caretEl.classList.remove('caret--typing');
   }, 600);
 
-  if (cursorIndex < totalGlyphs) {
-    const x = glyphOffsets[cursorIndex * 2]!;
-    const y = glyphOffsets[cursorIndex * 2 + 1]!;
-    moveCaret(caretEl, x, y);
-  } else {
+  // Move caret to cursorIndex (works cleanly including cursorIndex === totalGlyphs terminal position)
+  const x = glyphOffsets[cursorIndex * 2]!;
+  const y = glyphOffsets[cursorIndex * 2 + 1]!;
+  moveCaret(caretEl, x, y);
+
+  if (cursorIndex >= totalGlyphs) {
     drillComplete();
   }
 
