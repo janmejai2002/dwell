@@ -17,7 +17,7 @@ export default defineConfig({
     baseURL: 'http://localhost:5173',
     trace: 'on-first-retry',
     viewport: { width: 800, height: 600 },
-    channel: 'chrome',
+    ...(process.env.CI ? {} : { channel: 'chrome' }),
   },
   webServer: {
     command: 'pnpm --filter @dwell/harness dev',
@@ -29,7 +29,10 @@ export default defineConfig({
   projects: [
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'], channel: 'chrome' },
+      use: {
+        ...devices['Desktop Chrome'],
+        ...(process.env.CI ? {} : { channel: 'chrome' }),
+      },
     },
   ],
 });
