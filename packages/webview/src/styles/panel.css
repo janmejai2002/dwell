@@ -22,7 +22,7 @@ body {
   position: relative;
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 100%;
   padding: var(--sp-6);
   gap: var(--sp-8);
 }
@@ -35,16 +35,28 @@ body {
   width: var(--sp-4);
   height: 40px;
   contain: strict;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity var(--motion-wick-appear) cubic-bezier(.33, 1, .68, 1),
+              transform var(--motion-wick-appear) cubic-bezier(.33, 1, .68, 1);
+  pointer-events: none;
+}
+
+#wick-container.wick--active {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
 }
 
 /* Drill text area */
 #drill-container {
+  position: relative;
   flex: 1 1 auto;
   min-height: 0;
   max-width: 62ch;
   padding-left: calc(var(--sp-4) + var(--sp-4));
-  contain: strict;
   overflow: hidden;
+  cursor: text;
 }
 
 /* Metric strip: sits below the drill, separated by sp-8 gap */
@@ -98,12 +110,27 @@ body {
 }
 
 /* Caret */
+@keyframes caret-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
 .caret {
   position: absolute;
+  top: 0;
+  left: 0;
   width: 2px;
   background: var(--accent);
   will-change: transform;
   transition: transform var(--motion-caret) cubic-bezier(.2, .8, .2, 1);
+  animation: caret-blink 1.06s steps(1) infinite;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.caret.caret--typing {
+  animation: none;
+  opacity: 1;
 }
 
 .caret--dimmed {

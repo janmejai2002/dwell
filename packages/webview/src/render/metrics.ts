@@ -48,14 +48,14 @@ export function updateMetrics(
   ensureElements();
   if (!uWPMEl || !latencyEl || !cleanRunEl) return;
 
-  uWPMEl.textContent = `${Math.round(uWPM)}`;
+  uWPMEl.textContent = uWPM > 0 ? `${Math.round(uWPM)} uWPM` : '— uWPM';
 
   if (latency !== null) {
     const latencyS = (latency / 1000).toFixed(1);
-    latencyEl.textContent = `${latencyS}s`;
+    latencyEl.textContent = `${latencyS}s latency`;
   } else {
     latencyEl.textContent = '';
   }
 
-  cleanRunEl.textContent = `${longestClean}`;
+  cleanRunEl.textContent = longestClean > 0 ? `${longestClean} clean` : '— clean';
 }

@@ -3,96 +3,241 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dwell Harness</title>
-  <link rel="stylesheet" href="../../packages/webview/src/styles/tokens.css">
-  <link rel="stylesheet" href="../../packages/webview/src/styles/panel.css">
+  <title>Dwell — Prompt Writing Typing Drill</title>
   <style>
-    /* Harness controls — uses token variables, no colour literals */
-    #harness-controls {
-      position: relative;
-      z-index: 10;
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--sp-2);
-      padding: var(--sp-3);
-      border-bottom: 1px solid var(--ink-600);
-      font-family: var(--font-mono);
-      font-size: var(--size-label);
-      color: var(--ink-200);
-      background: var(--ink-700);
-    }
-
-    #harness-controls button {
-      background: var(--ink-600);
-      color: var(--ink-050);
-      border: 1px solid var(--ink-400);
-      padding: var(--sp-1) var(--sp-2);
-      font-family: var(--font-mono);
-      font-size: var(--size-label);
-      cursor: pointer;
-      border-radius: 2px;
-    }
-
-    #harness-controls button:hover {
-      background: var(--ink-400);
-    }
-
-    #harness-controls label {
-      display: flex;
-      align-items: center;
-      gap: var(--sp-1);
-    }
-
-    #width-slider {
-      width: 120px;
-    }
-
-    #webview-frame {
-      position: relative;
-      flex: 1;
-      overflow: hidden;
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
     html, body {
       height: 100%;
-      margin: 0;
+      background: var(--ink-900, #12110F);
+      color: var(--ink-050, #E8E4DC);
+      font-family: var(--font-drill, 'iA Writer Quattro S', monospace);
+      overflow-x: hidden;
     }
 
     body {
       display: flex;
       flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Top harness bar */
+    #harness-controls {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px 12px;
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--ink-600, #2E2C29);
+      font-family: var(--font-mono, 'IBM Plex Mono', monospace);
+      font-size: 12px;
+      color: var(--ink-200, #8F8A82);
+      background: var(--ink-800, #1A1917);
+      user-select: none;
+    }
+
+    .harness-brand {
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      color: var(--ink-050, #E8E4DC);
+      margin-right: 4px;
+      font-size: 11px;
+      text-transform: uppercase;
+    }
+
+    .control-group {
+      display: inline-flex;
+      align-items: center;
+      background: var(--ink-700, #232220);
+      border: 1px solid var(--ink-600, #2E2C29);
+      border-radius: 2px;
+      padding: 2px;
+      gap: 2px;
+    }
+
+    #harness-controls button {
+      background: transparent;
+      color: var(--ink-200, #8F8A82);
+      border: none;
+      padding: 3px 8px;
+      font-family: var(--font-mono, 'IBM Plex Mono', monospace);
+      font-size: 11px;
+      cursor: pointer;
+      border-radius: 2px;
+      transition: background 120ms ease, color 120ms ease;
+    }
+
+    #harness-controls button:hover {
+      background: var(--ink-600, #2E2C29);
+      color: var(--ink-050, #E8E4DC);
+    }
+
+    #harness-controls button.active {
+      background: var(--ink-600, #2E2C29);
+      color: var(--accent, #C2703D);
+      font-weight: 600;
+    }
+
+    #harness-controls label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      cursor: pointer;
+    }
+
+    #width-slider {
+      width: 90px;
+      cursor: pointer;
+      accent-color: var(--accent, #C2703D);
+    }
+
+    .sep {
+      color: var(--ink-600, #2E2C29);
+      font-size: 13px;
+    }
+
+    /* Workbench stage */
+    #workbench-stage {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 32px 16px;
+      background: var(--ink-900, #12110F);
+    }
+
+    .sidebar-frame-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      width: 100%;
+      max-width: 500px;
+      transition: max-width 100ms ease-out;
+    }
+
+    .sidebar-frame-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 6px 12px;
+      font-family: var(--font-mono, 'IBM Plex Mono', monospace);
+      font-size: 11px;
+      letter-spacing: 0.04em;
+      color: var(--ink-400, #57534D);
+      border: 1px solid var(--ink-600, #2E2C29);
+      border-bottom: none;
+      background: var(--ink-800, #1A1917);
+      border-top-left-radius: 2px;
+      border-top-right-radius: 2px;
+    }
+
+    #webview-frame {
+      position: relative;
+      height: 520px;
+      background: var(--ink-800, #1A1917);
+      border: 1px solid var(--ink-600, #2E2C29);
+      border-bottom-left-radius: 2px;
+      border-bottom-right-radius: 2px;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+    }
+
+    .keyboard-hint {
+      margin-top: 14px;
+      font-family: var(--font-mono, 'IBM Plex Mono', monospace);
+      font-size: 12px;
+      color: var(--ink-400, #57534D);
+      text-align: center;
+    }
+
+    .keyboard-hint kbd {
+      background: var(--ink-700, #232220);
+      border: 1px solid var(--ink-600, #2E2C29);
+      padding: 1px 5px;
+      border-radius: 2px;
+      color: var(--ink-200, #8F8A82);
     }
   </style>
 </head>
 <body>
   <div id="harness-controls">
-    <button id="btn-theme-dark" type="button">dark</button>
-    <button id="btn-theme-light" type="button">light</button>
-    <button id="btn-theme-hc-dark" type="button">hc-dark</button>
-    <button id="btn-theme-hc-light" type="button">hc-light</button>
-    <span>|</span>
-    <button id="btn-reveal" type="button">reveal</button>
-    <button id="btn-agent-start" type="button">agent:start</button>
-    <button id="btn-agent-end" type="button">agent:end</button>
-    <span>|</span>
+    <span class="harness-brand">Dwell</span>
+
+    <div class="control-group">
+      <button id="btn-theme-dark" class="active" type="button">dark</button>
+      <button id="btn-theme-light" type="button">light</button>
+      <button id="btn-theme-hc-dark" type="button">hc-dark</button>
+      <button id="btn-theme-hc-light" type="button">hc-light</button>
+    </div>
+
+    <span class="sep">|</span>
+
+    <div class="control-group">
+      <button id="btn-tier-1" class="active" type="button">T1 Plain</button>
+      <button id="btn-tier-2" type="button">T2 Break</button>
+      <button id="btn-tier-3" type="button">T3 Rule</button>
+      <button id="btn-tier-4" type="button">T4 Frame</button>
+      <button id="btn-tier-5" type="button">T5 Recall</button>
+      <button id="btn-tier-6" type="button">T6 Cold</button>
+    </div>
+
+    <span class="sep">|</span>
+
+    <div class="control-group">
+      <button id="btn-agent-start" type="button">Arm Wick (25s)</button>
+      <button id="btn-agent-end" type="button">Extinguish</button>
+      <button id="btn-reveal" type="button">Reveal</button>
+    </div>
+
+    <span class="sep">|</span>
+
+    <label>
+      <input type="checkbox" id="chk-sound" checked>
+      Sound
+    </label>
+
     <label>
       <input type="checkbox" id="chk-reduced-motion">
-      reduced motion
+      Reduced motion
     </label>
+
+    <span class="sep">|</span>
+
     <label>
-      width
-      <input type="range" id="width-slider" min="280" max="800" value="500">
+      Width: <span id="width-label">500px</span>
+      <input type="range" id="width-slider" min="320" max="650" value="500">
     </label>
   </div>
-  <div id="webview-frame">
-    <div id="dwell-root">
-      <div id="wick-container" style="contain: strict;"></div>
-      <div id="drill-container" style="contain: strict;"></div>
-      <div id="metrics-strip"></div>
-      <div id="trace-container"></div>
-      <div id="idle-info"></div>
+
+  <div id="workbench-stage">
+    <div class="sidebar-frame-wrapper" id="sidebar-wrapper">
+      <div class="sidebar-frame-header">
+        <span>AUXILIARY PANEL</span>
+        <span id="panel-status">LIVE · READY</span>
+      </div>
+      <div id="webview-frame">
+        <div id="dwell-root">
+          <div id="wick-container"></div>
+          <div id="drill-container"></div>
+          <div id="metrics-strip"></div>
+          <div id="trace-container"></div>
+          <div id="idle-info"></div>
+        </div>
+      </div>
+      <div class="keyboard-hint">
+        Click inside to focus &bull; Start typing &bull; <kbd>Backspace</kbd> corrects &bull; <kbd>Esc</kbd> closes
+      </div>
     </div>
   </div>
+
   <script type="module" src="./src/mock-host.ts"></script>
 </body>
 </html>

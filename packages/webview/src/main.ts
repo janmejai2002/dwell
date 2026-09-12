@@ -8,9 +8,9 @@
 
 import './styles/tokens.css';
 import './styles/panel.css';
-import { buildGlyphTrack, cacheOffsets, updateGlyph } from './render/glyphs';
+import { buildGlyphTrack, cacheOffsets, cacheGlyphElements, updateGlyph, getExpectedChar } from './render/glyphs';
 import { initCaret, moveCaret } from './render/caret';
-import { initWick, updateWick, extinguishWick } from './render/wick';
+import { initWick, updateWick, extinguishWick, relightWick } from './render/wick';
 import { renderTrace } from './render/trace';
 import { updateMetrics } from './render/metrics';
 import { initAudio, playKeystroke, playEnter, playBackspace, suspend, resume, toggleSound } from './audio/keys';
@@ -46,6 +46,13 @@ let cursorIndex = 0;
 let glyphOffsets: Float32Array | null = null;
 let lastKeystrokeTime = 0;
 let soundEnabled = true;
+
+let startTime = 0;
+let correctCount = 0;
+let errorCount = 0;
+let cleanStreak = 0;
+let maxCleanStreak = 0;
+let typingTimer = 0;
 
 // ---------- DOM refs ----------
 
@@ -108,6 +115,13 @@ function processKeystroke(entry: KeystrokeEntry): void {
       const x = glyphOffsets[cursorIndex * 2]!;
       const y = glyphOffsets[cursorIndex * 2 + 1]!;
       moveCaret(caretEl, x, y);
+
+      caretEl.classList.add('caret--typing');
+      if (typingTimer) clearTimeout(typingTimer);
+      typingTimer = window.setTimeout(() => {
+        caretEl.classList.remove('caret--typing');
+      }, 600);
+
       if (soundEnabled) playBackspace();
     }
     return;
@@ -131,27 +145,49 @@ function handleCharacter(char: string, interval: number): void {
   const totalGlyphs = glyphOffsets.length / 2;
   if (cursorIndex >= totalGlyphs) return;
 
-  // Determine correctness by checking the glyph's expected character
-  const glyphEl = drillContainer.querySelectorAll('.glyph')[cursorIndex] as HTMLElement | undefined;
-  if (!glyphEl) return;
-
-  const expected = glyphEl.dataset['char'] ?? '';
+  const expected = getExpectedChar(cursorIndex);
   const correct = char === expected;
 
-  // Two DOM ops max: classList swap on glyph + transform on caret
-  updateGlyph(cursorIndex, correct ? 'struck' : 'missed');
+  if (startTime === 0) {
+    startTime = performance.now();
+  }
+
+  if (correct) {
+    correctCount++;
+    cleanStreak++;
+    if (cleanStreak > maxCleanStreak) {
+      maxCleanStreak = cleanStreak;
+    }
+    updateGlyph(cursorIndex, 'struck');
+  } else {
+    errorCount++;
+    cleanStreak = 0;
+    updateGlyph(cursorIndex, 'missed');
+  }
+
   cursorIndex++;
+
+  // Suppress caret blink while actively typing
+  caretEl.classList.add('caret--typing');
+  if (typingTimer) clearTimeout(typingTimer);
+  typingTimer = window.setTimeout(() => {
+    caretEl.classList.remove('caret--typing');
+  }, 600);
 
   if (cursorIndex < totalGlyphs) {
     const x = glyphOffsets[cursorIndex * 2]!;
     const y = glyphOffsets[cursorIndex * 2 + 1]!;
     moveCaret(caretEl, x, y);
   } else {
-    // Drill complete
     drillComplete();
   }
 
-  void interval; // used by audio caller
+  // Update live metrics on metric strip
+  const elapsedMinutes = (performance.now() - startTime) / 60000;
+  const currentUwpm = elapsedMinutes > 0 ? (correctCount / 5) / elapsedMinutes : 0;
+  updateMetrics(currentUwpm, null, maxCleanStreak);
+
+  void interval;
 }
 
 function drillComplete(): void {
@@ -160,6 +196,7 @@ function drillComplete(): void {
     cancelAnimationFrame(rafId);
     rafId = 0;
   }
+  caretEl.classList.remove('caret--typing');
   vscode.postMessage({ v: 1, type: 'run:complete' });
 }
 
@@ -201,7 +238,9 @@ window.addEventListener('message', (e: MessageEvent<HostMessage>) => {
 
 function handleReveal(): void {
   running = true;
-  rafId = requestAnimationFrame(tick);
+  if (!rafId) {
+    rafId = requestAnimationFrame(tick);
+  }
   resume();
 }
 
@@ -215,13 +254,17 @@ function handleHide(): void {
 }
 
 function handleAgentStart(msg: HostMessage): void {
-  const estimateMs = typeof msg['estimateMs'] === 'number' ? msg['estimateMs'] : 0;
-  void estimateMs;
-  // Wick will update via the rAF loop once we have timing info
+  const estimateMs = typeof msg['estimateMs'] === 'number' ? msg['estimateMs'] : 60000;
+  wickContainer.classList.add('wick--active');
+  relightWick();
+  updateWick(0, estimateMs / 1000, performance.now() / 1000);
 }
 
 function handleAgentEnd(): void {
   extinguishWick();
+  setTimeout(() => {
+    wickContainer.classList.remove('wick--active');
+  }, 300);
 }
 
 function handleStateRestore(msg: HostMessage): void {
@@ -252,13 +295,31 @@ function handleTheme(msg: HostMessage): void {
  */
 export function loadDrill(text: string): void {
   cursorIndex = 0;
+  startTime = 0;
+  correctCount = 0;
+  errorCount = 0;
+  cleanStreak = 0;
+  maxCleanStreak = 0;
+  running = true;
 
   buildGlyphTrack(drillContainer, text);
+  cacheGlyphElements(drillContainer);
+
+  // Ensure caret is inside drillContainer
+  drillContainer.appendChild(caretEl);
+  caretEl.classList.remove('caret--typing');
+
   glyphOffsets = cacheOffsets(drillContainer);
 
   // Position caret at first glyph
   if (glyphOffsets.length >= 2) {
     moveCaret(caretEl, glyphOffsets[0]!, glyphOffsets[1]!);
+  }
+
+  updateMetrics(0, null, 0);
+
+  if (!rafId) {
+    rafId = requestAnimationFrame(tick);
   }
 }
 

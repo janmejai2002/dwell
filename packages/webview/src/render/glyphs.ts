@@ -70,6 +70,14 @@ export function cacheGlyphElements(container: HTMLElement): void {
   _glyphEls = Array.from(container.querySelectorAll('.glyph'));
 }
 
+export function getExpectedChar(index: number): string {
+  return _glyphEls[index]?.dataset['char'] ?? '';
+}
+
+export function getGlyphCount(): number {
+  return _glyphEls.length;
+}
+
 /**
  * Update a single glyph's visual state via classList swap.
  * This is the hot path — one DOM mutation (classList change), no layout reads.
@@ -78,11 +86,15 @@ export function updateGlyph(index: number, state: GlyphState): void {
   const el = _glyphEls[index];
   if (!el) return;
 
-  // Remove all state classes in one operation, add the new one
   const cl = el.classList;
-  cl.remove('struck', 'missed', 'corrected');
-
-  if (state !== 'pending') {
+  if (state === 'pending') {
+    const wasMissed = cl.contains('missed') || cl.contains('corrected');
+    cl.remove('struck', 'missed', 'corrected');
+    if (wasMissed) {
+      cl.add('corrected');
+    }
+  } else {
+    cl.remove('struck', 'missed', 'corrected');
     cl.add(state);
   }
 }

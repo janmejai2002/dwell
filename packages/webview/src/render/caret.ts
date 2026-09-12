@@ -12,6 +12,7 @@
 export function initCaret(container: HTMLElement): HTMLElement {
   const caret = document.createElement('div');
   caret.className = 'caret';
+  caret.id = 'caret';
   // Height matches the drill line-height: 19px * 1.55 ≈ 30px
   caret.style.height = '30px';
   caret.style.willChange = 'transform';
