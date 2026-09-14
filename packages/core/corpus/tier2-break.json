@@ -2,121 +2,121 @@
   {
     "id": "t2-001",
     "tier": 2,
-    "text": "fetch user profile from the database\nvalidate the email format with a regex\nreturn a four hundred error on invalid input\ncache the valid profile for ten minutes",
-    "chars": 164
+    "text": "locate the memory leak in the websocket connection manager\nreplace the global listener map with a weakmap\nverify garbage collection after client disconnect",
+    "chars": 155
   },
   {
     "id": "t2-002",
     "tier": 2,
-    "text": "find all slow database queries in the logs\nadd an index on the foreign key column\nrerun the benchmark to measure latency\nverify the query plan uses the new index",
-    "chars": 165
+    "text": "inspect the failed database migration in staging\nwrite a non destructive down migration for the index drop\nverify table lock duration remains under fifty milliseconds",
+    "chars": 166
   },
   {
     "id": "t2-003",
     "tier": 2,
-    "text": "parse the incoming webhook payload\nverify the cryptographic signature header\nqueue a background task for processing\nrespond with an immediate two hundred ok",
-    "chars": 160
+    "text": "profile the slow search query on the orders table\nreplace the table scan with a composite btree index\nrun an explain analyze to confirm index scan execution",
+    "chars": 156
   },
   {
     "id": "t2-004",
     "tier": 2,
-    "text": "read the configuration file from disk\nparse the yaml into typed settings\nfail fast if required keys are missing\npass the settings to the server factory",
-    "chars": 154
+    "text": "intercept incoming webhook deliveries at the edge gateway\nverify the sha256 hmac signature against the signing secret\ndrop requests with invalid signatures immediately\nforward valid events to the background worker pool",
+    "chars": 218
   },
   {
     "id": "t2-005",
     "tier": 2,
-    "text": "listen for incoming websocket connections\nhandle client heartbeat ping messages\nbroadcast state updates to connected peers\nclean up disconnected client sockets",
-    "chars": 165
+    "text": "audit the oauth token exchange endpoint for race conditions\nwrap refresh token rotation in a serializable transaction\nrevoke all active session tokens if a reuse attempt is detected\nassert that concurrent refresh requests yield one valid token",
+    "chars": 243
   },
   {
     "id": "t2-006",
     "tier": 2,
-    "text": "inspect the memory heap profile snapshot\nidentify detached dom node references\nremove lingering event listener bindings\nverify garbage collection reclaims space",
-    "chars": 165
+    "text": "trace the unhandled promise rejection in the worker pool\nattach an error listener to each spawned child process\ndrain in flight tasks before restarting failed workers\nverify zero lost tasks during worker crash simulation",
+    "chars": 220
   },
   {
     "id": "t2-007",
     "tier": 2,
-    "text": "extract authentication token from header\ndecode the payload claims without verification\nverify the signature against public key\nattach the decoded claims to request context",
-    "chars": 178
+    "text": "reproduce the connection pool starvation under load\nadd an idle connection reaper with a thirty second timeout\ncap maximum pool size at twenty connections per instance\nlog a warning whenever pool utilization exceeds eighty percent",
+    "chars": 230
   },
   {
     "id": "t2-008",
     "tier": 2,
-    "text": "read batch of records from the queue\ntransform each record to the target schema\nwrite the batch to the target table\nacknowledge the processed messages",
-    "chars": 153
+    "text": "identify stale read replica anomalies during order placement\nroute post purchase balance checks to the primary database\nadd read your own writes consistency using replication lag tokens",
+    "chars": 185
   },
   {
     "id": "t2-009",
     "tier": 2,
-    "text": "check if the requested file exists in storage\ngenerate a signed download url with short expiry\nrecord the download event in the audit table\nredirect the client to the storage provider",
-    "chars": 184
+    "text": "inspect the flaky integration test for payment refunds\nreplace hardcoded thread sleeps with explicit polling predicates\nisolate test tenant state by creating isolated fixtures\nconfirm twenty consecutive passes in continuous integration",
+    "chars": 235
   },
   {
     "id": "t2-010",
     "tier": 2,
-    "text": "acquire a distributed lock on the resource\nrun the critical reconciliation routine\nrelease the lock in a finally block\nlog the duration of the locked operation",
-    "chars": 164
+    "text": "measure p99 latency spikes in the serialization layer\nreplace the recursive json tree traversal with an iterative parser\npreallocate byte buffers for anticipated payload sizes\nbenchmark throughput across ten thousand concurrent messages",
+    "chars": 236
   },
   {
     "id": "t2-011",
     "tier": 2,
-    "text": "inspect all pending order records\nflag orders awaiting payment confirmation\nnotify the fulfillment service of ready orders\nupdate the status timestamps in the database",
-    "chars": 172
+    "text": "detect deadlocks between inventory reservation and checkout\nenforce a consistent lock acquisition ordering across both services\nadd an exponential backoff retry loop for transient serialization errors\nassert zero deadlock exceptions under concurrent order tests",
+    "chars": 261
   },
   {
     "id": "t2-012",
     "tier": 2,
-    "text": "intercept outgoing network requests\nadd correlation id header to every request\nlog request method and target pathname\nmeasure round trip time upon response",
-    "chars": 158
+    "text": "audit the bulk user export endpoint for unbounded memory usage\nconvert the in memory array accumulator to a streaming cursor\npipe compressed chunks directly to the http response socket\nverify peak process heap remains under sixty megabytes",
+    "chars": 239
   },
   {
     "id": "t2-013",
     "tier": 2,
-    "text": "pull the latest container image from registry\nrun database schema migrations in a pre-step\nspin up new containers alongside old ones\nshift traffic gradually using weighted routing",
-    "chars": 181
+    "text": "inspect the distributed trace waterfall for slow checkout requests\npropagate w3c traceparent headers through all internal grpc calls\nadd custom span annotations around external card gateway calls\nassert end to end trace completeness in the telemetry collector",
+    "chars": 259
   },
   {
     "id": "t2-014",
     "tier": 2,
-    "text": "parse the search query into tokens\napply stemming and stop word filtering\nscore matching documents with bm25 ranking\nreturn top twenty documents with highlights",
-    "chars": 164
+    "text": "diagnose event bus consumer lag during burst traffic\npartition the incoming topic by tenant identifier\nscale consumer worker instances from two to eight\nverify lag metric returns to zero within two minutes",
+    "chars": 205
   },
   {
     "id": "t2-015",
     "tier": 2,
-    "text": "check rate limit counter for the client ip\nincrement counter in atomic redis transaction\nset expiry if this is a new window\nreject request with four two nine if over limit",
-    "chars": 173
+    "text": "harden the file upload handler against path traversal attacks\nsanitize file names by stripping control characters and dots\nstore uploaded blobs under random uuid prefixes on object storage\nreject requests containing relative path segments with four hundred",
+    "chars": 256
   },
   {
     "id": "t2-016",
     "tier": 2,
-    "text": "load the source csv file into memory\nvalidate column headers against schema\nconvert date strings to unix timestamps\nexport normalized rows to parquet format",
-    "chars": 156
+    "text": "review the cache stampede failure during morning traffic peaks\nwrap the expensive catalog query with singleflight mutex locks\nserve stale cached values while background refresh executes\nverify backend database queries stay flat during cache invalidation",
+    "chars": 253
   },
   {
     "id": "t2-017",
     "tier": 2,
-    "text": "watch the local directory for file changes\ndebounce rapid successive change events\ntrigger incremental compiler build step\nreload connected browser clients via websocket",
-    "chars": 174
+    "text": "isolate the memory leak in the node event emitter\nremove dangling listeners on socket termination\nset maximum listener count to twenty to detect regressions\nverify heap snapshot size remains constant across client reconnects",
+    "chars": 224
   },
   {
     "id": "t2-018",
     "tier": 2,
-    "text": "fetch exchange rates from upstream api\nvalidate response contains required currency pairs\nupdate local in-memory currency table\nschedule next refresh in fifteen minutes",
-    "chars": 170
+    "text": "reproduce the data race in the session store\nreplace raw dictionary access with atomic compare and swap operations\nrun twenty concurrent read write workers against the fixture\nassert zero lost session updates across one million operations",
+    "chars": 238
   },
   {
     "id": "t2-019",
     "tier": 2,
-    "text": "scan source tree for deprecated function calls\nreplace calls with the modern equivalent\nrun unit tests to ensure behavior is unchanged\nformat modified source files according to style guide",
-    "chars": 190
+    "text": "audit the database teardown script in end to end tests\ntruncate tables in reverse topological dependency order\ndisable foreign key constraints during table cleanup\nre-enable constraints and verify clean test isolation",
+    "chars": 217
   },
   {
     "id": "t2-020",
     "tier": 2,
-    "text": "extract error details from caught exception\nmask sensitive credentials and tokens\nsend alert to the on-call monitoring channel\nreturn a safe generic error to the caller",
-    "chars": 170
+    "text": "examine the cold start latency in the serverless handler\nmove database connection pool initialization outside the handler function\nlazy load heavy cryptographic libraries only on first demand\nconfirm p90 cold start time drops under one hundred milliseconds",
+    "chars": 256
   }
 ]

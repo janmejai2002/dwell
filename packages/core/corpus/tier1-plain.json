@@ -2,121 +2,121 @@
   {
     "id": "t1-001",
     "tier": 1,
-    "text": "move the retry logic out of the request handler and into a small helper",
-    "chars": 71
+    "text": "make the stripe webhook handler idempotent using the event id as deduplication key",
+    "chars": 82
   },
   {
     "id": "t1-002",
     "tier": 1,
-    "text": "refactor the endpoint to use idempotent schema validation on every write",
-    "chars": 72
+    "text": "reproduce the race condition by running concurrent token refreshes in a fixture",
+    "chars": 79
   },
   {
     "id": "t1-003",
     "tier": 1,
-    "text": "reproduce the flaky race condition using a deterministic test fixture",
-    "chars": 69
+    "text": "wrap the balance deduction in a serializable transaction with row level locks",
+    "chars": 77
   },
   {
     "id": "t1-004",
     "tier": 1,
-    "text": "revert the migration script and add a rollback step for the table alter",
-    "chars": 71
+    "text": "revert the migration script and add a rollback step for the dropped column index",
+    "chars": 80
   },
   {
     "id": "t1-005",
     "tier": 1,
-    "text": "add an in-memory cache with a five-minute ttl around the user lookup",
-    "chars": 68
+    "text": "isolate the memory leak by profiling weakmap references across websocket closes",
+    "chars": 79
   },
   {
     "id": "t1-006",
     "tier": 1,
-    "text": "extract the database connection pool into a shared singleton module",
-    "chars": 67
+    "text": "inject distributed trace context headers into every outgoing worker dispatch call",
+    "chars": 81
   },
   {
     "id": "t1-007",
     "tier": 1,
-    "text": "replace the polling loop with a backoff retry strategy up to five tries",
-    "chars": 71
+    "text": "add exponential backoff with full jitter to the payment gateway retry loop",
+    "chars": 74
   },
   {
     "id": "t1-008",
     "tier": 1,
-    "text": "write a regression test proving the null pointer bug is fixed",
-    "chars": 61
+    "text": "enforce strict schema validation on incoming tenant payloads before queue push",
+    "chars": 78
   },
   {
     "id": "t1-009",
     "tier": 1,
-    "text": "inline the temporary variable and simplify the boolean expression",
-    "chars": 65
+    "text": "acquire an advisory lock on the customer uuid before running the ledger credit",
+    "chars": 78
   },
   {
     "id": "t1-010",
     "tier": 1,
-    "text": "backfill the missing tenant column across all existing order records",
-    "chars": 68
+    "text": "replace the flaky time sleep with an explicit polling predicate in integration tests",
+    "chars": 84
   },
   {
     "id": "t1-011",
     "tier": 1,
-    "text": "isolate the external payment gateway calls behind an interface",
-    "chars": 62
+    "text": "instrument database connection checkout duration with high resolution timers",
+    "chars": 76
   },
   {
     "id": "t1-012",
     "tier": 1,
-    "text": "split the monolithic route handler into distinct controller actions",
-    "chars": 67
+    "text": "guard the event bus consumer against poison pills with a dead letter queue",
+    "chars": 74
   },
   {
     "id": "t1-013",
     "tier": 1,
-    "text": "debounce the search input handler by three hundred milliseconds",
-    "chars": 63
+    "text": "make the batch invoice processor idempotent across unexpected worker restarts",
+    "chars": 77
   },
   {
     "id": "t1-014",
     "tier": 1,
-    "text": "sanitize user input before passing it to the raw sql query builder",
-    "chars": 66
+    "text": "verify that unhandled promise rejections terminate the process with exit code one",
+    "chars": 81
   },
   {
     "id": "t1-015",
     "tier": 1,
-    "text": "add a health check endpoint that verifies database and queue status",
-    "chars": 67
+    "text": "backfill the missing foreign key constraints without taking exclusive table locks",
+    "chars": 81
   },
   {
     "id": "t1-016",
     "tier": 1,
-    "text": "replace the synchronous file read with a non-blocking stream pipeline",
-    "chars": 69
+    "text": "extract the redis cache fallback into a resilient decorator with circuit breaker",
+    "chars": 80
   },
   {
     "id": "t1-017",
     "tier": 1,
-    "text": "enforce strict type checking on the api response payload transformation",
-    "chars": 71
+    "text": "propagate cancellation signals down the call chain when client drops connection",
+    "chars": 79
   },
   {
     "id": "t1-018",
     "tier": 1,
-    "text": "convert the nested callback chain into async await syntax cleanly",
-    "chars": 65
+    "text": "isolate thread contention by moving the sequence counter to an atomic primitive",
+    "chars": 79
   },
   {
     "id": "t1-019",
     "tier": 1,
-    "text": "log all unhandled exceptions with request context and stack traces",
-    "chars": 66
+    "text": "validate that stale read replicas do not serve outdated authentication tokens",
+    "chars": 77
   },
   {
     "id": "t1-020",
     "tier": 1,
-    "text": "prune expired session records during the nightly maintenance job",
-    "chars": 64
+    "text": "drain the worker queue gracefully before closing database connection pools",
+    "chars": 74
   }
 ]

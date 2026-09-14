@@ -3,140 +3,240 @@
     "id": "t6-001",
     "tier": 6,
     "text": "write a prompt to refactor an endpoint that suffers from race conditions during concurrent updates",
-    "chars": 99,
-    "coverage": ["Goal", "Context", "Constraints", "Done"]
+    "chars": 98,
+    "coverage": [
+      "Goal",
+      "Context",
+      "Constraints",
+      "Done"
+    ]
   },
   {
     "id": "t6-002",
     "tier": 6,
     "text": "write a prompt to add idempotent payment retry logic to prevent double charging customers",
-    "chars": 90,
-    "coverage": ["Goal", "Context", "Constraints", "Done"]
+    "chars": 89,
+    "coverage": [
+      "Goal",
+      "Context",
+      "Constraints",
+      "Done"
+    ]
   },
   {
     "id": "t6-003",
     "tier": 6,
     "text": "write a prompt to introduce structured json logging across a distributed order processing service",
-    "chars": 98,
-    "coverage": ["Goal", "Context", "Constraints", "Done"]
+    "chars": 97,
+    "coverage": [
+      "Goal",
+      "Context",
+      "Constraints",
+      "Done"
+    ]
   },
   {
     "id": "t6-004",
     "tier": 6,
     "text": "write a prompt to fix a flaky test in continuous integration that fails due to hardcoded sleep timers",
-    "chars": 102,
-    "coverage": ["Goal", "Context", "Constraints", "Done"]
+    "chars": 101,
+    "coverage": [
+      "Goal",
+      "Context",
+      "Constraints",
+      "Done"
+    ]
   },
   {
     "id": "t6-005",
     "tier": 6,
     "text": "write a prompt to implement rate limiting on authentication routes to stop credential stuffing",
-    "chars": 95,
-    "coverage": ["Goal", "Context", "Constraints", "Done"]
+    "chars": 94,
+    "coverage": [
+      "Goal",
+      "Context",
+      "Constraints",
+      "Done"
+    ]
   },
   {
     "id": "t6-006",
     "tier": 6,
     "text": "write a prompt to safely backfill a new non null column across ten million existing rows without locks",
     "chars": 102,
-    "coverage": ["Goal", "Context", "Constraints", "Done"]
+    "coverage": [
+      "Goal",
+      "Context",
+      "Constraints",
+      "Done"
+    ]
   },
   {
     "id": "t6-007",
     "tier": 6,
-    "text": "write a prompt to add a circuit breaker to an unreliable external geocoding api client",
-    "chars": 87,
-    "coverage": ["Goal", "Context", "Constraints", "Done"]
+    "text": "write a prompt to isolate a memory leak in a persistent websocket server that retains closed connections",
+    "chars": 104,
+    "coverage": [
+      "Goal",
+      "Context",
+      "Constraints",
+      "Done"
+    ]
   },
   {
     "id": "t6-008",
     "tier": 6,
-    "text": "write a prompt to replace synchronous file reading with a non blocking streaming pipeline",
-    "chars": 90,
-    "coverage": ["Goal", "Context", "Constraints", "Done"]
+    "text": "write a prompt to enforce strict tenant isolation in all database queries across a multi tenant system",
+    "chars": 102,
+    "coverage": [
+      "Goal",
+      "Context",
+      "Constraints",
+      "Done"
+    ]
   },
   {
     "id": "t6-009",
     "tier": 6,
-    "text": "write a prompt to isolate tenant data in database queries to prevent cross tenant access",
-    "chars": 88,
-    "coverage": ["Goal", "Context", "Constraints", "Done"]
+    "text": "write a prompt to add circuit breaker protection around an unreliable third party currency exchange api",
+    "chars": 103,
+    "coverage": [
+      "Goal",
+      "Context",
+      "Constraints",
+      "Done"
+    ]
   },
   {
     "id": "t6-010",
     "tier": 6,
-    "text": "write a prompt to implement graceful shutdown in worker processes handling long running background jobs",
+    "text": "write a prompt to eliminate an n plus one query pattern in a user activity feed without in memory joins",
     "chars": 103,
-    "coverage": ["Goal", "Context", "Constraints", "Done"]
+    "coverage": [
+      "Goal",
+      "Context",
+      "Constraints",
+      "Done"
+    ]
   },
   {
     "id": "t6-011",
     "tier": 6,
-    "text": "write a prompt to verify incoming webhook payloads using hmac signatures and timestamp checks",
+    "text": "write a prompt to migrate primary keys from integer to bigint in an active production database",
     "chars": 94,
-    "coverage": ["Goal", "Context", "Constraints", "Done"]
+    "coverage": [
+      "Goal",
+      "Context",
+      "Constraints",
+      "Done"
+    ]
   },
   {
     "id": "t6-012",
     "tier": 6,
-    "text": "write a prompt to optimize search query latency that is causing database connection pool exhaustion",
+    "text": "write a prompt to implement backpressure in an event consumer when ingestion exceeds processing rate",
     "chars": 100,
-    "coverage": ["Goal", "Context", "Constraints", "Done"]
+    "coverage": [
+      "Goal",
+      "Context",
+      "Constraints",
+      "Done"
+    ]
   },
   {
     "id": "t6-013",
     "tier": 6,
-    "text": "write a prompt to sanitize all user submitted input before passing it to the database query builder",
-    "chars": 100,
-    "coverage": ["Goal", "Context", "Constraints", "Done"]
+    "text": "write a prompt to add sha256 hmac signature verification to incoming partner webhook callbacks",
+    "chars": 94,
+    "coverage": [
+      "Goal",
+      "Context",
+      "Constraints",
+      "Done"
+    ]
   },
   {
     "id": "t6-014",
     "tier": 6,
-    "text": "write a prompt to add an in memory cache with time to live expiration for frequent user profile reads",
-    "chars": 102,
-    "coverage": ["Goal", "Context", "Constraints", "Done"]
+    "text": "write a prompt to handle graceful shutdown for background queue workers when a sigterm signal arrives",
+    "chars": 101,
+    "coverage": [
+      "Goal",
+      "Context",
+      "Constraints",
+      "Done"
+    ]
   },
   {
     "id": "t6-015",
     "tier": 6,
-    "text": "write a prompt to implement exponential backoff retry for failed network requests to third party services",
-    "chars": 105,
-    "coverage": ["Goal", "Context", "Constraints", "Done"]
+    "text": "write a prompt to resolve a database deadlock between checkout transactions and inventory deductions",
+    "chars": 100,
+    "coverage": [
+      "Goal",
+      "Context",
+      "Constraints",
+      "Done"
+    ]
   },
   {
     "id": "t6-016",
     "tier": 6,
-    "text": "write a prompt to clean up orphaned temporary files and storage blobs left by interrupted uploads",
-    "chars": 98,
-    "coverage": ["Goal", "Context", "Constraints", "Done"]
+    "text": "write a prompt to stream large audit log exports directly to storage without exceeding process heap limits",
+    "chars": 106,
+    "coverage": [
+      "Goal",
+      "Context",
+      "Constraints",
+      "Done"
+    ]
   },
   {
     "id": "t6-017",
     "tier": 6,
-    "text": "write a prompt to migrate hardcoded secret credentials to runtime environment configuration",
-    "chars": 92,
-    "coverage": ["Goal", "Context", "Constraints", "Done"]
+    "text": "write a prompt to propagate distributed tracing headers across internal grpc service invocations",
+    "chars": 96,
+    "coverage": [
+      "Goal",
+      "Context",
+      "Constraints",
+      "Done"
+    ]
   },
   {
     "id": "t6-018",
     "tier": 6,
-    "text": "write a prompt to add a lightweight health check endpoint for container orchestrator readiness probes",
-    "chars": 103,
-    "coverage": ["Goal", "Context", "Constraints", "Done"]
+    "text": "write a prompt to implement read your own writes consistency across replicated database clusters",
+    "chars": 96,
+    "coverage": [
+      "Goal",
+      "Context",
+      "Constraints",
+      "Done"
+    ]
   },
   {
     "id": "t6-019",
     "tier": 6,
-    "text": "write a prompt to extract a complex pricing calculation into a pure deterministic helper function",
-    "chars": 98,
-    "coverage": ["Goal", "Context", "Constraints", "Done"]
+    "text": "write a prompt to protect an in memory metric aggregator from race conditions under high concurrency",
+    "chars": 100,
+    "coverage": [
+      "Goal",
+      "Context",
+      "Constraints",
+      "Done"
+    ]
   },
   {
     "id": "t6-020",
     "tier": 6,
-    "text": "write a prompt to add response compression for api endpoints returning large json collections",
-    "chars": 93,
-    "coverage": ["Goal", "Context", "Constraints", "Done"]
+    "text": "write a prompt to prevent cache stampedes on hot catalog keys using singleflight mutex locks",
+    "chars": 92,
+    "coverage": [
+      "Goal",
+      "Context",
+      "Constraints",
+      "Done"
+    ]
   }
 ]
